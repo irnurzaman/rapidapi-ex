@@ -4,7 +4,7 @@ from fastapi.responses import Response
 from aiohttp import ClientSession
 
 
-API_KEY = '6b58504c8amshc0633fd4cf70e74p144bf4jsnc5df41eae577'
+API_KEY = '6b58504c8amshc0633fd4cf70e74p144bf4jsnc5df41eae577'  # RapidAPI Application API Key
 API_HOST = 'bloomberg-market-and-financial-news.p.rapidapi.com'
 BLOOMBERG_URL = 'https://bloomberg-market-and-financial-news.p.rapidapi.com/'
 
@@ -21,7 +21,7 @@ async def getFinancialData(stock: str):
     async with client.get(f'{BLOOMBERG_URL}/stock/get-financials', headers=headers, params=query) as resp:
         response = await resp.json()
         if 'result' not in response:
-            return Response('Invalid Stock', 406)
+            return Response('Invalid Stock', 406)  # RapidAPI only responses with {"restricted":true}
         else:
             return response
 
@@ -35,7 +35,7 @@ async def getStatisticData(stock: str):
     async with client.get(f'{BLOOMBERG_URL}/stock/get-statistics', headers=headers, params=query) as resp:
         response = await resp.json()
         if len(response['result'][0]['table']) < 1:
-            return Response('Invalid Stock', 406)
+            return Response('Invalid Stock', 406)  # RapidAPI will responses with empty table array
         else:
             return response
 
